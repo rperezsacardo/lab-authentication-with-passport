@@ -11,11 +11,15 @@
   <nav>
     <a href="/">Home</a>
     {{#if user}}
+    <a href="/restrict/dog">Dog</a>
+    <a href="/restrict/cat">Cat</a>
+    <a href="/restrict/bird">Bird</a>
     <a href="/authentication/private">{{user.username}}'s Profile</a>
     <form action="/authentication/sign-out" method="POST">
       <button>Sign Out</button>
     </form>
     {{else}}
+    <a href="/authentication/github">Sign with Github</a>
     <a href="/authentication/sign-in">Sign In</a>
     <a href="/authentication/sign-up">Sign Up</a>
     {{/if}}

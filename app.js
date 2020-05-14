@@ -14,6 +14,8 @@ const expressSession = require('express-session');
 
 const indexRouter = require('./routes/index');
 const authenticationRouter = require('./routes/authentication');
+const editRouter = require('./routes/edit');
+const restrictRouter = require('./routes/restrict');
 
 const app = express();
 
@@ -69,6 +71,8 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/authentication', authenticationRouter);
+app.use('/edit', editRouter);
+app.use('/restrict', restrictRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

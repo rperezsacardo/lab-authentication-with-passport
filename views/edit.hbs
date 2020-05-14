@@ -1,0 +1,27 @@
+<h1> Edit Page</h1>
+
+<form action="" method="post">
+
+  <label for="username-input">Username</label>
+  <input id="username-input" type="text" name="username" value="{{user.username}}">
+
+  <label for="nick-input">Nick</label>
+  <input id="nick-input" type="text" name="nick" value="{{user.nick}}" placeholder="your nick">
+
+  <label for="date-input">Age</label>
+  <input id="date-input" type="date" name="birthyDay" value="{{user.birthyDay}}" placeholder="birthyday date">
+
+  <label for="game-input">Favorite Game</label>
+  <input id="game-input" type="text" name="game" value="{{user.game}}" placeholder="favorite game">
+
+
+  <select name="role" id="role-input">
+    <option value="">Select your animal</option>
+    <option value="dog">dog</option>
+    <option value="cat">cat</option>
+    <option value="bird">bird</option>
+  </select>
+
+  <button>Edit</button>
+
+</form>

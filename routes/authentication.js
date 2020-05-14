@@ -3,6 +3,26 @@
 const { Router } = require('express');
 const authenticationRouter = Router();
 const passport = require('passport');
+const routerGuard = require('./../middleware/route-guard');
+// Github.
+
+authenticationRouter.get(
+  '/github',
+  passport.authenticate('github', {
+    successRedirect: '/',
+    failureRedirect: '/error'
+  })
+);
+
+authenticationRouter.get(
+  '/github-callback',
+  passport.authenticate('github', {
+    successRedirect: '/',
+    failureRedirect: '/error'
+  })
+);
+
+// Sign in local:
 
 authenticationRouter.get('/sign-in', (req, res, next) => {
   res.render('authentication/sign-in');
@@ -33,7 +53,7 @@ authenticationRouter.post('/sign-out', (req, res, next) => {
   res.redirect('/');
 });
 
-authenticationRouter.get('/private', (req, res, next) => {
+authenticationRouter.get('/private', routerGuard, (req, res, next) => {
   res.render('authentication/private');
 });
 

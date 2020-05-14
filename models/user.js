@@ -5,12 +5,33 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema(
   {
     username: {
-      type: String,
-      required: true
+      type: String
+    },
+
+    nick: {
+      type: String
+    },
+    game: {
+      type: String
+    },
+    birthyDay: {
+      type: Date
+    },
+    email: {
+      type: String
+    },
+    avatar: {
+      type: String
+    },
+    githubId: {
+      type: String
     },
     passwordHash: {
+      type: String
+    },
+    role: {
       type: String,
-      required: true
+      enum: ['cat', 'dog', 'bird']
     }
   },
   {

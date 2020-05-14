@@ -4,6 +4,7 @@ const passportLocal = require('passport-local');
 const bcrypt = require('bcryptjs');
 
 const Localstrategy = passportLocal.Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 
 const User = require('./models/user');
 
@@ -20,6 +21,46 @@ passport.deserializeUser((id, callback) => {
       callback(error);
     });
 });
+
+//Git Hub Strategy
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: 'http://localhost:3000/authentication/github-callback',
+      scope: 'user:email'
+    },
+    (accessToken, refreshToken, profile, callback) => {
+      const username = profile.displayName;
+      const email = profile.emails.length ? profile.emails[0].value : null;
+      const avatar = profile._json.avatar_url;
+      const githubId = profile.id;
+
+      User.findOne({ githubId })
+        .then((user) => {
+          if (user) {
+            return Promise.resolve(user);
+          } else {
+            return User.create({
+              username,
+              email,
+              avatar,
+              githubId
+            });
+          }
+        })
+        .then((user) => {
+          callback(null, user);
+        })
+        .catch((error) => {
+          callback(error);
+        });
+    }
+  )
+);
+
+//Local Strategy:
 
 passport.use(
   'sign-up',
